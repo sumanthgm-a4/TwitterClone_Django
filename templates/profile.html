@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="container col-lg-6" style="padding-top: 10px;">
+        <h1 align="center">Welcome to your profile</h1><br>
+        <div class="card">
+            <div class="card-header">
+                <h3>Hello <strong>@{{ request.user.username }}</strong></h3>
+            </div>
+            <div class="card-body">
+                <h3><strong>Username: </strong>{{ request.user.username }}</h3>
+                <h3><strong>Name of the user: </strong> {{ request.user.first_name }}&nbsp;{{ request.user.last_name }}</h3>
+                <h3><strong>User joined on: </strong>{{ request.user.date_joined }}</h3>
+                <h3><strong>No. of tweets made: </strong>{{ n }}</h3>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

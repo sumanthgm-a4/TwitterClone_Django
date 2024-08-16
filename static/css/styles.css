@@ -1,0 +1,21 @@
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 3px;
+background: #eee;
+}
+
+h1{
+    padding-bottom: 0%;
+    padding-top: 10px;
+}
+
+.new{
+    padding-top: 0px;
+}
+
+.navbar-style{
+    background-color: blue;
+}
+
