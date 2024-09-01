@@ -18,15 +18,16 @@
             <form method="POST"> {% csrf_token %}
                 <div class="card-body" align="center">
                     <div class="container col-lg-12">
-                    <textarea class="form-control" name="tweet" rows="5">{{ tweet }}</textarea>
+                    <textarea class="form-control" name="tweet" rows="5">{{ tweet.tweet }}</textarea>
                 </div>
                 </div>
                 <div class="card-footer" align="center">
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
-
         </div>
+        Post liked by {{ tweet.likes.count }} people <br>
+        Post disliked by {{ tweet.dislikes.count }} people
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

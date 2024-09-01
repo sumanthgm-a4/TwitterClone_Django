@@ -95,19 +95,20 @@ def render_create_post(request):
 
 def render_display(request, post_id):
     t = Tweet.objects.get(id=post_id)
-    if request.method == "POST":
+    if request.user.username == t.usern:
         print("Who tryna update:", request.user.username)
         print("Who can update:", t.usern)
         print(request.user.username == t.usern)
-        if request.user.username == t.usern:
+        if request.method == "POST":
             new_tweet = request.POST.get('tweet')
             t.tweet = new_tweet
             t.save()
             messages.success(request, "Tweet successfully updated")
             return redirect('home')
-        messages.warning(request, f"Only '{t}' can update this tweet")
-        return redirect('home')
-    return render(request, "single.html", {"tweet": t.tweet})
+        return render(request, 'single.html', {"tweet": t})
+    print("Likes:", t.likes.all())
+    print("Dislikes:", t.dislikes.all())
+    return render(request, "post.html", {"tweet": t})
 
 def render_delete(request, post_id):
     obj = Tweet.objects.get(id=post_id)
@@ -117,3 +118,24 @@ def render_delete(request, post_id):
         return redirect('home')
     messages.error(request, f"You cannot delete @{obj.usern}'s tweets")
     return redirect('home')
+
+@login_required(login_url="login")
+def render_likes(request, post_id):
+    post = Tweet.objects.get(id=post_id)
+    if not post.dislikes.filter(username=request.user.username):
+        post.likes.add(request.user)
+    else:
+        post.dislikes.remove(request.user)
+        post.likes.add(request.user)
+    return redirect("display", post_id=post_id)
+
+
+@login_required(login_url="login")
+def render_dislikes(request, post_id):
+    post = Tweet.objects.get(id=post_id)
+    if not post.likes.filter(username=request.user.username):
+        post.dislikes.add(request.user)
+    else:
+        post.likes.remove(request.user)
+        post.dislikes.add(request.user)
+    return redirect("display", post_id=post_id)

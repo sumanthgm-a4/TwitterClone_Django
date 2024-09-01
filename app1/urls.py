@@ -10,4 +10,6 @@ urlpatterns = [
     path("create", views.render_create_post, name="create"),
     path("delete/<str:post_id>", views.render_delete, name="delete"),
     path("display/<str:post_id>", views.render_display, name="display"),
+    path("like/<str:post_id>", views.render_likes, name="like_post"),
+    path("dislike/<str:post_id>", views.render_dislikes, name="dislike_post"),
 ]
